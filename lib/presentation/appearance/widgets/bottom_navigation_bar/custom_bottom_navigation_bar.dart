@@ -28,6 +28,12 @@ class CustomBottomNavigationBar extends StatelessWidget
     CustomBottomNavigationBarType.favourites: CupertinoIcons.heart_fill,
   };
 
+  static Map<CustomBottomNavigationBarType, String> typeToScreen = {
+    CustomBottomNavigationBarType.countdown: '/countdown',
+    CustomBottomNavigationBarType.launches: '/launches',
+    CustomBottomNavigationBarType.favourites:'/favourites',
+  };
+
   @override
   Size get preferredSize => const Size.fromHeight(kBottomNavigationBarHeight);
 
@@ -48,11 +54,11 @@ class CustomBottomNavigationBar extends StatelessWidget
   Widget _item(BuildContext context, CustomBottomNavigationBarType type) {
     return Expanded(
       child: GestureDetector(
-        // onTap: () {
-        //   if (activeItem != type && typeToScreen.containsKey(type)) {
-        //       context.modularTo.pushReplacementNamed(typeToScreen[type]!);
-        //   }
-        // },
+        onTap: () {
+          if (activeItem != type && typeToScreen.containsKey(type)) {
+              Navigator.pushNamed(context, typeToScreen[type]!);
+          }
+        },
         child: Container(
           height: 50,
           color: Colors.transparent,
