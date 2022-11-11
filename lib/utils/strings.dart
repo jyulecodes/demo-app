@@ -15,5 +15,9 @@ extension UiTextExt on BuildContext {
 
   String get seconds => "seconds";
 
+  String get countdown => "Launch Countdown";
+
+  String get favourites => "Favourites";
+
   String get placeholderText => "Placeholder Text";
 }

@@ -9,5 +9,9 @@ abstract class AppColors {
   static const Color launchTitleBarPurple = Color(0xFF48105A);
   static const Color launchBackgroundIndigo = Color(0xFF271F31);
   static const Color launchBackgroundMauve = Color(0xFF3C2939);
+  static const Color favouritesTitleBarPink=Color(0xFFD44483);
+  static const Color favouritesTitleBarOrange=Color(0xFFFFAF7A);
+  static const Color favouritesBackgroundBerry = Color(0xFFA52D61);
+  static const Color favouritesBackgroundCoral = Color(0xFFC64242);
   static const Color pureWhite = Colors.white;
 }

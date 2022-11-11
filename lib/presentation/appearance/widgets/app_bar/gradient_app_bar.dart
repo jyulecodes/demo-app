@@ -25,6 +25,8 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
       systemOverlayStyle:
           const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       centerTitle: true,
+      shadowColor: Colors.transparent,
+      elevation: 0,
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

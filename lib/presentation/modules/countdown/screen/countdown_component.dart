@@ -5,6 +5,7 @@ import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart'
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
 import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/styles/text_styles.dart';
+import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
 
 class CountdownComponent extends StatefulWidget {
   const CountdownComponent({Key? key}) : super(key: key);
@@ -24,6 +25,10 @@ class _CountdownComponentState extends State<CountdownComponent> {
           context.placeholderText,
           style: AppTextStyles.pageTitle,
         ),
+      ),
+      bottomNavBar: const CustomBottomNavigationBar(
+        activeItem: CustomBottomNavigationBarType.countdown,
+        inactiveIconColor: AppColors.countTitleBarTeal,
       ),
       backgroundColorTopRight: AppColors.countBackgroundDarkGreen,
       backgroundColorBottomLeft: AppColors.countBackgroundLightGreen,

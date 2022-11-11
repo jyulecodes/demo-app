@@ -4,35 +4,35 @@ import 'package:spacex_launches/presentation/appearance/styles/text_styles.dart'
 import 'package:spacex_launches/presentation/appearance/widgets/base_screen/base_screen.dart';
 import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
-import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
+import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/list_tiles/launch_list_button.dart';
 
-class LaunchesComponent extends StatefulWidget {
-  const LaunchesComponent({Key? key}) : super(key: key);
+class FavouritesComponent extends StatefulWidget {
+  const FavouritesComponent({Key? key}) : super(key: key);
 
   @override
-  State<LaunchesComponent> createState() => _LaunchesComponentState();
+  State<FavouritesComponent> createState() => _FavouritesComponentState();
 }
 
-class _LaunchesComponentState extends State<LaunchesComponent> {
+class _FavouritesComponentState extends State<FavouritesComponent> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
       appBar: GradientAppBar(
-        backgroundColorLeft: AppColors.launchTitleBarPink,
-        backgroundColorRight: AppColors.launchTitleBarPurple,
+        backgroundColorLeft: AppColors.favouritesTitleBarOrange,
+        backgroundColorRight: AppColors.favouritesTitleBarPink,
         child: Text(
-          context.upcomingLaunches,
+          context.favourites,
           style: AppTextStyles.pageTitle,
         ),
       ),
       bottomNavBar: const CustomBottomNavigationBar(
-        activeItem: CustomBottomNavigationBarType.launches,
-        inactiveIconColor: AppColors.launchTitleBarPink,
+        activeItem: CustomBottomNavigationBarType.favourites,
+        inactiveIconColor: AppColors.favouritesTitleBarOrange,
       ),
-      backgroundColorTopRight: AppColors.launchBackgroundIndigo,
-      backgroundColorBottomLeft: AppColors.launchBackgroundMauve,
+      backgroundColorTopRight: AppColors.favouritesBackgroundBerry,
+      backgroundColorBottomLeft: AppColors.favouritesBackgroundCoral,
       child: _missionsList(),
     );
   }

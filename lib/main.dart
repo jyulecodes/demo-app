@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/countdown/screen/countdown_screen.dart';
 import 'package:spacex_launches/presentation/modules/launches/screen/launches_screen.dart';
+import 'package:spacex_launches/presentation/modules/favourites/screen/favourites_screen.dart';
 
 void main() {
   runApp(const MyApp());

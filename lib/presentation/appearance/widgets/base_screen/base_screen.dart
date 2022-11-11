@@ -7,6 +7,7 @@ class BaseScreen extends StatelessWidget {
     Key? key,
     this.child,
     this.appBar,
+    this.bottomNavBar,
     this.backgroundColorTopRight = AppColors.pureWhite,
     this.backgroundColorBottomLeft = AppColors.pureWhite,
     this.isError = false,
@@ -14,6 +15,7 @@ class BaseScreen extends StatelessWidget {
 
   final Widget? child;
   final PreferredSizeWidget? appBar;
+  final PreferredSizeWidget? bottomNavBar;
   final Color backgroundColorTopRight;
   final Color backgroundColorBottomLeft;
   final bool isError;
@@ -22,6 +24,9 @@ class BaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
+      bottomNavigationBar: bottomNavBar,
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(
