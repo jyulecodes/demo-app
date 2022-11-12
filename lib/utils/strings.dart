@@ -19,5 +19,7 @@ extension UiTextExt on BuildContext {
 
   String get favourites => "Favourites";
 
+  String get errorText => "Unable to load launches. Please try again later";
+
   String get placeholderText => "Placeholder Text";
 }

@@ -6,7 +6,7 @@ import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart'
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
 import 'package:spacex_launches/utils/strings.dart';
-import 'package:spacex_launches/presentation/appearance/widgets/list_tiles/launch_list_button.dart';
+import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_list_button.dart';
 
 class FavouritesComponent extends StatefulWidget {
   const FavouritesComponent({Key? key}) : super(key: key);
