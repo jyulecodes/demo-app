@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_launches/presentation/appearance/styles/text_styles.dart';
-
+import 'package:intl/intl.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/base_screen/base_screen.dart';
 import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/launches/cubit/launches_cubit.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/messages/api_error_message.dart';
 
+import '../../../../data/models/launch.dart';
+
 class LaunchesComponent extends StatefulWidget {
   const LaunchesComponent({Key? key}) : super(key: key);
 
@@ -19,6 +21,8 @@ class LaunchesComponent extends StatefulWidget {
 }
 
 class _LaunchesComponentState extends State<LaunchesComponent> {
+  List<Widget> buttonsList = [];
+
   @override
   void initState() {
     super.initState();
@@ -29,25 +33,24 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
   Widget build(BuildContext context) {
     return BlocBuilder<LaunchesCubit, LaunchesState>(
         builder: (BuildContext context, LaunchesState state) {
-          return BaseScreen(
-            appBar: GradientAppBar(
-              backgroundColorLeft: AppColors.launchTitleBarPink,
-              backgroundColorRight: AppColors.launchTitleBarPurple,
-              child: Text(
-                context.upcomingLaunches,
-                style: AppTextStyles.pageTitle,
-              ),
-            ),
-            bottomNavBar: const CustomBottomNavigationBar(
-              activeItem: CustomBottomNavigationBarType.launches,
-              inactiveIconColor: AppColors.launchTitleBarPink,
-            ),
-            backgroundColorTopRight: AppColors.launchBackgroundIndigo,
-            backgroundColorBottomLeft: AppColors.launchBackgroundMauve,
-            child: _pageBody(state),
-          );
-        }
-    );
+      return BaseScreen(
+        appBar: GradientAppBar(
+          backgroundColorLeft: AppColors.launchTitleBarPink,
+          backgroundColorRight: AppColors.launchTitleBarPurple,
+          child: Text(
+            context.upcomingLaunches,
+            style: AppTextStyles.pageTitle,
+          ),
+        ),
+        bottomNavBar: const CustomBottomNavigationBar(
+          activeItem: CustomBottomNavigationBarType.launches,
+          inactiveIconColor: AppColors.launchTitleBarPink,
+        ),
+        backgroundColorTopRight: AppColors.launchBackgroundIndigo,
+        backgroundColorBottomLeft: AppColors.launchBackgroundMauve,
+        child: _pageBody(state),
+      );
+    });
   }
 
   Widget _pageBody(LaunchesState state) {
@@ -65,24 +68,31 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
   }
 
   Widget _launchesList(LaunchesSuccess state) {
-    return Column(
-      children: <Widget>[
-        LaunchListButton(
-          mission: context.mission,
-          date: context.dateUtc,
-          showHeart: false,
+    buttonsList.add(LaunchListButton(
+      mission: context.mission,
+      date: context.dateUtc,
+      showHeart: false,
+    ));
+   int i=0;
+    for (Launch item in state.launchList) {
+      String readableDate = DateFormat('dd/MM/yy')
+          .format(DateTime.parse(item.launchDate))
+          .toString();
+      buttonsList.add(LaunchListButton(
+        mission: item.name,
+        date: readableDate,
+        isEnd: i==state.launchList.length-1?true:false,
+      ));
+      i++;
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 60),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: buttonsList,
         ),
-        LaunchListButton(
-          mission: state.launchList[0].name,
-          date: context.dateUtc,
-          isFavourite: true,
-        ),
-        LaunchListButton(
-          mission: context.placeholderText,
-          date: context.dateUtc,
-          isEnd: true,
-        ),
-      ],
+      ),
     );
   }
 }
