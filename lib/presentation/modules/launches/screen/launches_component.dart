@@ -7,6 +7,9 @@ import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient
 import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_list_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spacex_launches/presentation/modules/launches/cubit/launches_cubit.dart';
+import 'package:spacex_launches/presentation/appearance/widgets/messages/api_error_message.dart';
 
 class LaunchesComponent extends StatefulWidget {
   const LaunchesComponent({Key? key}) : super(key: key);
@@ -17,27 +20,51 @@ class LaunchesComponent extends StatefulWidget {
 
 class _LaunchesComponentState extends State<LaunchesComponent> {
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<LaunchesCubit>(context).loadLaunches();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      appBar: GradientAppBar(
-        backgroundColorLeft: AppColors.launchTitleBarPink,
-        backgroundColorRight: AppColors.launchTitleBarPurple,
-        child: Text(
-          context.upcomingLaunches,
-          style: AppTextStyles.pageTitle,
-        ),
-      ),
-      bottomNavBar: const CustomBottomNavigationBar(
-        activeItem: CustomBottomNavigationBarType.launches,
-        inactiveIconColor: AppColors.launchTitleBarPink,
-      ),
-      backgroundColorTopRight: AppColors.launchBackgroundIndigo,
-      backgroundColorBottomLeft: AppColors.launchBackgroundMauve,
-      child: _missionsList(),
+    return BlocBuilder<LaunchesCubit, LaunchesState>(
+        builder: (BuildContext context, LaunchesState state) {
+          return BaseScreen(
+            appBar: GradientAppBar(
+              backgroundColorLeft: AppColors.launchTitleBarPink,
+              backgroundColorRight: AppColors.launchTitleBarPurple,
+              child: Text(
+                context.upcomingLaunches,
+                style: AppTextStyles.pageTitle,
+              ),
+            ),
+            bottomNavBar: const CustomBottomNavigationBar(
+              activeItem: CustomBottomNavigationBarType.launches,
+              inactiveIconColor: AppColors.launchTitleBarPink,
+            ),
+            backgroundColorTopRight: AppColors.launchBackgroundIndigo,
+            backgroundColorBottomLeft: AppColors.launchBackgroundMauve,
+            child: _pageBody(state),
+          );
+        }
     );
   }
 
-  Widget _missionsList() {
+  Widget _pageBody(LaunchesState state) {
+    if (state is LaunchesSuccess) {
+      return _launchesList(state);
+    } else if (state is LaunchesFailure) {
+      return ApiErrorMessage(errorMessage: context.errorText);
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: AppColors.pureWhite,
+        ),
+      );
+    }
+  }
+
+  Widget _launchesList(LaunchesSuccess state) {
     return Column(
       children: <Widget>[
         LaunchListButton(
@@ -46,7 +73,7 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
           showHeart: false,
         ),
         LaunchListButton(
-          mission: context.placeholderText,
+          mission: state.launchList[0].name,
           date: context.dateUtc,
           isFavourite: true,
         ),

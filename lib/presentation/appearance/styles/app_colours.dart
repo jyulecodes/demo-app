@@ -11,7 +11,7 @@ abstract class AppColors {
   static const Color launchBackgroundMauve = Color(0xFF3C2939);
   static const Color favouritesTitleBarPink=Color(0xFFD44483);
   static const Color favouritesTitleBarOrange=Color(0xFFFFAF7A);
-  static const Color favouritesBackgroundBerry = Color(0xFF892652);
-  static const Color favouritesBackgroundCoral = Color(0xFFB43939);
+  static const Color favouritesBackgroundBerry = Color(0xFF872E54);
+  static const Color favouritesBackgroundCoral = Color(0xFFB34040);
   static const Color pureWhite = Colors.white;
 }
