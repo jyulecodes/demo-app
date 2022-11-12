@@ -28,6 +28,7 @@ class BaseScreen extends StatelessWidget {
       extendBody: true,
       resizeToAvoidBottomInset: false,
       body: Stack(
+        alignment: AlignmentDirectional.topCenter,
         children: [
           Container(
             decoration: BoxDecoration(

@@ -6,6 +6,7 @@ import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient
 import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/styles/text_styles.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
+import 'package:spacex_launches/presentation/appearance/widgets/list_tiles/countdown_value_list_item.dart';
 
 class CountdownComponent extends StatefulWidget {
   const CountdownComponent({Key? key}) : super(key: key);
@@ -32,7 +33,20 @@ class _CountdownComponentState extends State<CountdownComponent> {
       ),
       backgroundColorTopRight: AppColors.countBackgroundDarkGreen,
       backgroundColorBottomLeft: AppColors.countBackgroundLightGreen,
-      child: Container(),
+      child: _countdownList(),
+    );
+  }
+
+  Widget _countdownList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(height: 24,),
+        CountdownValueListItem(unit: context.days),
+        CountdownValueListItem(unit: context.hours),
+        CountdownValueListItem(unit: context.minutes),
+        CountdownValueListItem(unit: context.seconds),
+      ],
     );
   }
 }

@@ -16,7 +16,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColorRight;
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight*1.25);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight*1.1);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
           const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       centerTitle: true,
       shadowColor: Colors.transparent,
+      automaticallyImplyLeading: false,
       elevation: 0,
       flexibleSpace: Container(
         decoration: BoxDecoration(

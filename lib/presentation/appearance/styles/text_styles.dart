@@ -20,15 +20,15 @@ abstract class AppTextStyles {
     color: AppColors.pureWhite,
   );
 
-  static const TextStyle manropeSemiBold40 = TextStyle(
+  static const TextStyle manropeMedium40 = TextStyle(
     fontFamily: defaultFontFamily,
-    fontSize: 40,
-    fontWeight: FontWeight.w600,
+    fontSize: 72,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0,
     color: AppColors.pureWhite,
   );
 
   static const TextStyle pageTitle = manropeMedium24;
   static const TextStyle launchScreenBody = manropeSemiBold18;
-  static const TextStyle countdownValue = manropeSemiBold18;
+  static const TextStyle countdownValue = manropeMedium40;
 }
