@@ -27,8 +27,9 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       Launch launch) async {
     emit(FavouritesLoading());
     List<Launch> favesList= await _repository.retrieveFavourites();
-    if (favesList.contains(launch)) {
-      favesList.remove(launch);
+    if (favesList.any((element) => element.name==launch.name)) {
+      favesList.removeWhere((item)=> item.name==launch.name);
+      print(favesList.toString());
       await _repository.updateFavourites(favesList);
     } else {
       favesList.add(launch);

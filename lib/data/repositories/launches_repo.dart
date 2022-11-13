@@ -7,7 +7,7 @@ class LaunchesRepository {
   static const String _apiUrl =
       'https://api.spacexdata.com/v4/launches/upcoming';
 
-  final favouritesListKey = 'favouritesList';
+  final favouritesListKey = 'favouritesListaaaaa';
 
   Future<List<Launch>> getLaunches() async {
     return Dio().get(_apiUrl).then<List<Launch>>((value) {

@@ -6,7 +6,6 @@ import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart'
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
 import 'package:spacex_launches/utils/strings.dart';
-import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_list_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/favourites/cubit/favourites_cubit.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/messages/api_error_message.dart';
@@ -30,7 +29,14 @@ class _FavouritesComponentState extends State<FavouritesComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavouritesCubit, FavouritesState>(
+    return BlocConsumer<FavouritesCubit, FavouritesState>(
+      listener: (context, state){
+        if(state is FavouritesSuccess){
+          buttonsList = [];
+          generateLaunchButtonList(context.mission, context.dateUtc,
+              state.favouritesList, buttonsList, context);
+        }
+      },
         builder: (BuildContext context, FavouritesState state) {
       return BaseScreen(
         appBar: GradientAppBar(
@@ -67,8 +73,6 @@ class _FavouritesComponentState extends State<FavouritesComponent> {
   }
 
   Widget _favouritesList(FavouritesSuccess state) {
-    generateLaunchButtonList(context.mission, context.dateUtc,
-        state.favouritesList, buttonsList, context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 60),
       child: SingleChildScrollView(
