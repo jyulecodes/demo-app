@@ -7,10 +7,7 @@ import 'package:spacex_launches/data/repositories/launches_repo.dart';
 part 'launches_state.dart';
 
 class LaunchesCubit extends Cubit<LaunchesState> {
-  LaunchesCubit(
-      this._repository
-      )
-      : super(LaunchesInitial());
+  LaunchesCubit(this._repository) : super(LaunchesInitial());
 
   final LaunchesRepository _repository;
 
@@ -18,9 +15,11 @@ class LaunchesCubit extends Cubit<LaunchesState> {
     emit(LaunchesLoading());
     try {
       final launchList = await _repository.getLaunches();
-      emit(LaunchesSuccess(launchList: launchList));
+      emit(LaunchesSuccess(
+        launchList: launchList,
+      ));
     } catch (error) {
-      emit(const LaunchesFailure(errorMsg: "aaa"));
+      emit(const LaunchesFailure(errorMsg: "error"));
     }
   }
 }

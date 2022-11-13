@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_launches/presentation/appearance/styles/text_styles.dart';
-import 'package:intl/intl.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/base_screen/base_screen.dart';
 import 'package:spacex_launches/presentation/appearance/styles/app_colours.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/app_bar/gradient_app_bar.dart';
 import 'package:spacex_launches/utils/strings.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/bottom_navigation_bar/custom_bottom_navigation_bar.dart';
-import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_list_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/launches/cubit/launches_cubit.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/messages/api_error_message.dart';
-
-import '../../../../data/models/launch.dart';
+import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_button_list_generator.dart';
 
 class LaunchesComponent extends StatefulWidget {
   const LaunchesComponent({Key? key}) : super(key: key);
@@ -68,23 +65,7 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
   }
 
   Widget _launchesList(LaunchesSuccess state) {
-    buttonsList.add(LaunchListButton(
-      mission: context.mission,
-      date: context.dateUtc,
-      showHeart: false,
-    ));
-   int i=0;
-    for (Launch item in state.launchList) {
-      String readableDate = DateFormat('dd/MM/yy')
-          .format(DateTime.parse(item.launchDate))
-          .toString();
-      buttonsList.add(LaunchListButton(
-        mission: item.name,
-        date: readableDate,
-        isEnd: i==state.launchList.length-1?true:false,
-      ));
-      i++;
-    }
+ generateLaunchButtonList(context.mission, context.dateUtc, state.launchList, buttonsList, context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 60),
       child: SingleChildScrollView(

@@ -12,21 +12,21 @@ class LaunchesInitial extends LaunchesState {}
 class LaunchesLoading extends LaunchesState {}
 
 class LaunchesSuccess extends LaunchesState {
-  const LaunchesSuccess(
-      {required this.launchList,}
-      );
+  const LaunchesSuccess({
+    required this.launchList,
+  });
 
   final List<Launch> launchList;
 
   @override
   List<Object> get props => [
-    // nextLaunch
-  ];
+        launchList,
+      ];
 }
 
 class LaunchesFailure extends LaunchesState {
   const LaunchesFailure({
-    required this.errorMsg,
+    this.errorMsg = '',
   });
 
   final String errorMsg;

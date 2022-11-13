@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/countdown/cubit/countdown_cubit.dart';
 import 'package:spacex_launches/presentation/modules/launches/cubit/launches_cubit.dart';
 import 'package:spacex_launches/data/repositories/launches_repo.dart';
+import 'package:spacex_launches/presentation/modules/favourites/cubit/favourites_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<LaunchesCubit>.value(
           value: LaunchesCubit(LaunchesRepository()),
+        ),
+        BlocProvider<FavouritesCubit>.value(
+          value: FavouritesCubit(LaunchesRepository()),
         ),
       ],
       child: MaterialApp(
