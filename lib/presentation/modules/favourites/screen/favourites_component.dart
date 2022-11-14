@@ -30,14 +30,13 @@ class _FavouritesComponentState extends State<FavouritesComponent> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FavouritesCubit, FavouritesState>(
-      listener: (context, state){
-        if(state is FavouritesSuccess){
-          buttonsList = [];
-          generateLaunchButtonList(context.mission, context.dateUtc,
-              state.favouritesList, buttonsList, context);
-        }
-      },
-        builder: (BuildContext context, FavouritesState state) {
+        listener: (context, state) {
+      if (state is FavouritesSuccess) {
+        buttonsList = [];
+        generateLaunchButtonList(context.mission, context.dateUtc,
+            state.favouritesList, state.favouritesList, buttonsList, context);
+      }
+    }, builder: (BuildContext context, FavouritesState state) {
       return BaseScreen(
         appBar: GradientAppBar(
           backgroundColorLeft: AppColors.favouritesTitleBarOrange,
@@ -62,7 +61,9 @@ class _FavouritesComponentState extends State<FavouritesComponent> {
     if (state is FavouritesSuccess) {
       return _favouritesList(state);
     } else if (state is FavouritesFailure) {
-      return ApiErrorMessage(errorMessage: context.errorText);
+      return const ApiErrorMessage(errorMessage: ErrorStrings.launchError);
+    } else if (state is FavouritesInitial) {
+      return const ApiErrorMessage(errorMessage: ErrorStrings.noFavourites);
     } else {
       return const Center(
         child: CircularProgressIndicator(
@@ -75,11 +76,8 @@ class _FavouritesComponentState extends State<FavouritesComponent> {
   Widget _favouritesList(FavouritesSuccess state) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 60),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: buttonsList,
-        ),
+      child:ListView(
+        children: buttonsList,
       ),
     );
   }

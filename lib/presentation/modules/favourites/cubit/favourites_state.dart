@@ -12,21 +12,19 @@ class FavouritesInitial extends FavouritesState {}
 class FavouritesLoading extends FavouritesState {}
 
 class FavouritesSuccess extends FavouritesState {
-  const FavouritesSuccess(
-      {required this.favouritesList,}
-      );
+  const FavouritesSuccess({
+    required this.favouritesList,
+  });
 
   final List<Launch> favouritesList;
 
   @override
-  List<Object> get props => [
-    favouritesList
-  ];
+  List<Object> get props => [favouritesList];
 }
 
 class FavouritesFailure extends FavouritesState {
   const FavouritesFailure({
-    this.errorMsg='',
+    this.errorMsg = '',
   });
 
   final String errorMsg;

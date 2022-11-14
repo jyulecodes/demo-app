@@ -9,12 +9,14 @@ generateLaunchButtonList(
   String missionColumnTitle,
   String dateColumnTitle,
   List<Launch> launchList,
+  List<Launch> favouritesList,
   List<Widget> buttonsList,
     BuildContext context,
 ) {
   buttonsList.add(LaunchListButton(
     mission: missionColumnTitle,
     date: dateColumnTitle,
+    showHeart: false,
   ));
   int i = 0;
   for (Launch item in launchList) {
@@ -25,6 +27,7 @@ generateLaunchButtonList(
       mission: item.name,
       date: readableDate,
       isEnd: i == launchList.length - 1 ? true : false,
+      fillHeart: favouritesList.any((element) => element.name == item.name)?true:false,
       onPressed: () {
         BlocProvider.of<FavouritesCubit>(context)
             .updateFavourites(item);

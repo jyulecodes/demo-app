@@ -12,6 +12,14 @@ abstract class AppTextStyles {
     color: AppColors.pureWhite,
   );
 
+  static const TextStyle manropeMedium20 = TextStyle(
+    fontSize: 20,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    color: AppColors.pureWhite,
+  );
+
   static const TextStyle manropeSemiBold18 = TextStyle(
     fontFamily: defaultFontFamily,
     fontSize: 18,
@@ -31,4 +39,5 @@ abstract class AppTextStyles {
   static const TextStyle pageTitle = manropeMedium24;
   static const TextStyle launchScreenBody = manropeSemiBold18;
   static const TextStyle countdownValue = manropeMedium40;
+  static const TextStyle errorMessage = manropeMedium20;
 }

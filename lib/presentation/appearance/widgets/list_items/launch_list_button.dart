@@ -10,12 +10,16 @@ class LaunchListButton extends StatelessWidget {
     this.mission = '',
     this.date = '',
     this.isEnd = false,
+    this.showHeart = true,
+    this.fillHeart = false,
     this.onPressed,
   }) : super(key: key);
 
   final String mission;
   final String date;
   final bool isEnd;
+  final bool showHeart;
+  final bool fillHeart;
   final VoidCallback? onPressed;
 
   @override
@@ -34,6 +38,9 @@ class LaunchListButton extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Icon( fillHeart
+                ? CupertinoIcons.heart_fill:CupertinoIcons.heart,
+            color: showHeart?AppColors.pureWhite:Colors.transparent,),
             const SizedBox(
               width: 10,
             ),

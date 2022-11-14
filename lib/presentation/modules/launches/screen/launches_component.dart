@@ -9,6 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_launches/presentation/modules/launches/cubit/launches_cubit.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/messages/api_error_message.dart';
 import 'package:spacex_launches/presentation/appearance/widgets/list_items/launch_button_list_generator.dart';
+import 'package:spacex_launches/presentation/modules/favourites/cubit/favourites_cubit.dart';
+
+import '../../../../data/models/launch.dart';
 
 class LaunchesComponent extends StatefulWidget {
   const LaunchesComponent({Key? key}) : super(key: key);
@@ -18,12 +21,11 @@ class LaunchesComponent extends StatefulWidget {
 }
 
 class _LaunchesComponentState extends State<LaunchesComponent> {
-  List<Widget> buttonsList = [];
-
   @override
   void initState() {
     super.initState();
     BlocProvider.of<LaunchesCubit>(context).loadLaunches();
+    BlocProvider.of<FavouritesCubit>(context).loadFavourites();
   }
 
   @override
@@ -52,9 +54,11 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
 
   Widget _pageBody(LaunchesState state) {
     if (state is LaunchesSuccess) {
-      return _launchesList(state);
+      return LaunchesList(allLaunches: state.launchList);
     } else if (state is LaunchesFailure) {
-      return ApiErrorMessage(errorMessage: context.errorText);
+      return const ApiErrorMessage(
+        errorMessage: ErrorStrings.launchError,
+      );
     } else {
       return const Center(
         child: CircularProgressIndicator(
@@ -63,17 +67,49 @@ class _LaunchesComponentState extends State<LaunchesComponent> {
       );
     }
   }
+}
 
-  Widget _launchesList(LaunchesSuccess state) {
- generateLaunchButtonList(context.mission, context.dateUtc, state.launchList, buttonsList, context);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 60),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: buttonsList,
-        ),
-      ),
-    );
+class LaunchesList extends StatefulWidget {
+  const LaunchesList({Key? key, this.allLaunches = const []}) : super(key: key);
+  final List<Launch> allLaunches;
+
+  @override
+  State<LaunchesList> createState() => _LaunchesListState();
+}
+
+class _LaunchesListState extends State<LaunchesList> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<FavouritesCubit>(context).loadFavourites();
+  }
+
+  List<Widget> buttonsList = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<FavouritesCubit, FavouritesState>(
+        listener: (context, state) {
+      if (state is FavouritesSuccess) {
+        buttonsList = [];
+        generateLaunchButtonList(context.mission, context.dateUtc,
+            widget.allLaunches, state.favouritesList, buttonsList, context);
+      } else if (state is FavouritesInitial) {
+        buttonsList = [];
+        generateLaunchButtonList(context.mission, context.dateUtc,
+            widget.allLaunches, [], buttonsList, context);
+      }
+    }, builder: (BuildContext context, FavouritesState state) {
+      if (state is FavouritesSuccess || state is FavouritesInitial) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: ListView(
+            children: buttonsList,
+          ),
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 }
