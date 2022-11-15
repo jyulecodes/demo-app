@@ -12,6 +12,7 @@ void main() {
   late CountdownRepository repository;
   Launch mockNextLaunch=Launch(name: "a", launchDate: DateTime.utc(2030).toString());
   Duration mockRemainingTime=DateTime.utc(2030).difference(DateTime.now());
+  Launch mockPastNextLaunch=Launch(name: "a", launchDate: DateTime.utc(2016).toString());
 
   group(
     'loadCountdown method',
@@ -51,6 +52,24 @@ void main() {
         verify: (cubit) {
           expect((cubit.state as CountdownSuccess).nextLaunch, mockNextLaunch);
           expect((cubit.state as CountdownSuccess).remainingTime.inHours, mockRemainingTime.inHours);
+          verify(() => repository.getCountdown()).called(1);
+        },
+      );
+      blocTest<CountdownCubit, CountdownState>(
+        ' Remaining time is zero when launch date is in the past',
+        setUp: () {
+          when(() => repository.getCountdown())
+              .thenAnswer((_) async => Future.value(mockPastNextLaunch));
+        },
+        build: () => CountdownCubit(repository),
+        act: (CountdownCubit cubit) => cubit.loadCountdown(),
+        expect: () => <TypeMatcher<CountdownState>>[
+          isA<CountdownLoading>(),
+          isA<CountdownSuccess>(),
+        ],
+        verify: (cubit) {
+          expect((cubit.state as CountdownSuccess).nextLaunch, mockPastNextLaunch);
+          expect((cubit.state as CountdownSuccess).remainingTime.inHours, 0);
           verify(() => repository.getCountdown()).called(1);
         },
       );
