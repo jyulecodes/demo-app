@@ -21,7 +21,7 @@ class CountdownSuccess extends CountdownState {
 
   @override
   List<Object> get props => [
-    // nextLaunch
+    nextLaunch, remainingTime
   ];
 }
 

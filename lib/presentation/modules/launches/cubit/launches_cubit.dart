@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:spacex_launches/data/models/launch.dart';
 import 'package:spacex_launches/data/repositories/launches_repo.dart';
+import 'package:spacex_launches/utils/strings.dart';
 
 part 'launches_state.dart';
 
@@ -19,7 +20,7 @@ class LaunchesCubit extends Cubit<LaunchesState> {
         launchList: launchList,
       ));
     } catch (error) {
-      emit(const LaunchesFailure(errorMsg: "error"));
+      emit(const LaunchesFailure(errorMsg: ErrorStrings.launchError));
     }
   }
 }

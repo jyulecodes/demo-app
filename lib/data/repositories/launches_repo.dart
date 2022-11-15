@@ -34,7 +34,6 @@ class LaunchesRepository {
     final favouritesString = prefs.getString(favouritesListKey);
    List<Launch> favouritesList= favouritesString != null && favouritesString.isNotEmpty
       ? Launch.decodeList(favouritesString):<Launch>[];
-      // print(favouritesList[0].name+ favouritesList[0].launchDate);
     return favouritesList;
   }
 }
