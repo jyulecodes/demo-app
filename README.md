@@ -1,4 +1,5 @@
-###About this project
+### About this project
+
 This app was made for the technical assessment stage of a job interview. I've included the brief for the task below.
 
 ### Objective
