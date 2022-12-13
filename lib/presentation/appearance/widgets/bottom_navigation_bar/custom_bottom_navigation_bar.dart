@@ -56,7 +56,7 @@ class CustomBottomNavigationBar extends StatelessWidget
       child: GestureDetector(
         onTap: () {
           if (activeItem != type && typeToScreen.containsKey(type)) {
-              Navigator.pushNamed(context, typeToScreen[type]!);
+              Navigator.pushReplacementNamed(context, typeToScreen[type]!);
           }
         },
         child: Container(

@@ -1,3 +1,6 @@
+###About this project
+This app was made for the technical assessment stage of a job interview. I've included the brief for the task below.
+
 ### Objective
 
 Your assignment is to create an app showcasing and notifying visitors about
@@ -14,9 +17,6 @@ Everyone is counting on you, go create that app.
 
 ### Tasks
 
-- Implement assignment using:
-  - Language: **Dart**
-  - Framework: **Flutter** (stable channel)
 - Build out the project to the designs inside the `/Designs` folder
 - Connect your application to the **SpaceX-API** (Docs `https://github.com/r-spacex/SpaceX-API/tree/master/docs#rspacex-api-docs`)
 - Use the API to build two screens/sections like in the design
@@ -35,29 +35,3 @@ Everyone is counting on you, go create that app.
 - Upcoming Launches: 'https://api.spacexdata.com/v4/launches/upcoming'
 
 With these endpoints, a simple GET request will provide you all the data needed for the tasks, no authentication required.
-
-### Deliverables
-
-Make sure to include all source code in the repository. To make reviewing easier, include a fully built version of your assignment in a folder named **public**.
-
-### Evaluation Criteria
-
-- **Dart** best practices
-- MVC or MVVM design patterns
-- Efficient use of packages to speed up development
-- Show us your work through your commit history
-- Completeness: did you complete the features?
-- Correctness: does the functionality act in sensible, thought-out ways?
-- Maintainability: is it written in a clean, maintainable way?
-- Testing: is the system adequately tested? do your components have unit tests?
-- Responsiveness and full iOS/Android compatibility
-- Elegantly use placeholders/skeletons when fetching data
-
-### CodeSubmit
-
-Please organise, design, test and document your code as if it were
-going into production - then push your changes to the master branch. After you have pushed your code, you may submit the assignment on the assignment page.
-
-All the best and happy coding,
-
-The gohenry Ltd. Team
